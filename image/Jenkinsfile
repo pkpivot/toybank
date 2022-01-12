@@ -9,7 +9,7 @@
                         ) {
                         sh "mvn package spring-boot:build-image"
                      }
-                     withCredentials([userAndPassword(credentialsId: 'harbor-robot', usernameVariable: USERNAME, passwordVariable PASSWORD)]) {
+                     withCredentials([userAndPassword(credentialsId: 'harbor-robot', usernameVariable: USERNAME, passwordVariable: PASSWORD)]) {
                         sh '''
                         buildah login pkharbor.uksouth.cloudapp.azure.com -u $USERNAME -P $PASSWORD
                         buildah tag toy-bank:1.0.1   pkharbor.uksouth.cloudapp.azure.com/toybank/toy-bank:1.0.$BUILD_ID
