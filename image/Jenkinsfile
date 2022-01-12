@@ -1,0 +1,22 @@
+ pipeline {
+     agent any
+     stages {
+         stage ('build') {
+            steps {
+                    withMaven ( 
+                        maven: 'maven-3-8',
+                        mavenLocalRepo: '.repository'
+                        ) {
+                        sh "mvn package spring-boot:build-image"
+                     }
+                     withCredentials([userAndPassword(credentialsId: 'harbor-robot', usernameVariable: USERNAME, passwordVariable PASSWORD)]) {
+                        sh '''
+                        buildah login pkharbor.uksouth.cloudapp.azure.com -u $USERNAME -P $PASSWORD
+                        buildah tag toy-bank:1.0.1   pkharbor.uksouth.cloudapp.azure.com/toybank/toy-bank:1.0.$BUILD_ID
+                        buildah push pkharbor.uksouth.cloudapp.azure.com/toybank/toy-bank:1.0.$BUILD_ID
+                        '''
+                     }
+            }
+         }
+     }
+  }
