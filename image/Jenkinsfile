@@ -7,7 +7,7 @@
                         maven: 'maven-3-8',
                         mavenLocalRepo: '.repository'
                         ) {
-                        sh "mvn package spring-boot:build-image"
+                        sh "mvn package"
                      }
                      withCredentials([userAndPassword(credentialsId: 'harbor-robot', usernameVariable: USERNAME, passwordVariable: PASSWORD)]) {
                         sh '''
