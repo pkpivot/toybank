@@ -11,7 +11,7 @@
                      }
                      withCredentials([usernamePassword(credentialsId: 'harbor-robot', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh '''
-                        buildah build -f Dockerfile -t pkharbor.uksouth.cloudapp.azure.com/toybank/toy-bank:1.0.$BUILD_ID
+                        buildah bud -f Dockerfile -t pkharbor.uksouth.cloudapp.azure.com/toybank/toy-bank:1.0.$BUILD_ID
                         buildah login pkharbor.uksouth.cloudapp.azure.com -u $USERNAME -P $PASSWORD
                      // buildah tag toy-bank:1.0.1   pkharbor.uksouth.cloudapp.azure.com/toybank/toy-bank:1.0.$BUILD_ID
                         buildah push pkharbor.uksouth.cloudapp.azure.com/toybank/toy-bank:1.0.$BUILD_ID
